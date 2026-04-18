@@ -1,0 +1,3 @@
+[submodule "glaux"]
+	path = glaux
+	url = https://github.com/alekkeersmaekers/glaux.git

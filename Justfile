@@ -25,7 +25,7 @@ normalized:
 [group('db')]
 glaux:
   basex -O MAXCATS=10000 -O ATTRINCLUDE=id,head,form,lemma,relation,speaker,div_chapter,div_section,analysis \
-        -c "CREATE DB glaux glaux/"
+        -c "CREATE DB glaux glaux/xml"
 
 [group('db')]
 tei:
