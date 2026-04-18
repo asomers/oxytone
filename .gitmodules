@@ -1,6 +1,3 @@
 [submodule "glaux"]
 	path = glaux
 	url = https://github.com/alekkeersmaekers/glaux.git
-[submodule "LSJ_GreekUnicode"]
-	path = lsj
-	url = https://github.com/gcelano/LSJ_GreekUnicode.git
