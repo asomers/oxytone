@@ -3,6 +3,12 @@ import module namespace pt = "postag";
 import module namespace p = 'paginate';
 import module namespace m = 'merge';
 
+declare function n:resource($author as xs:string, $work as xs:string) as xs:string {
+  let $a := replace($author, '^tlg', '')
+  let $w := replace($work, '^tlg', '')
+  return `{$a}-{$w}.xml`
+};
+
 declare function n:style($author, $work) {
   let $_ := store:read('glaux')
   let $meta := store:get(`{$author}/{$work}`)
@@ -138,7 +144,7 @@ declare function n:line($line, $id) {
 };
 
 declare %public function n:get-normalized($author, $work, $page := ()) {
-  let $tb := db:get('glaux', `{$author}/{$work}/`)[1]
+  let $tb := db:get('glaux', n:resource($author, $work))[1]
   let $style := trace(n:style($author, $work), "STYLE: ")
   let $pager := p:pager(`{$author}/{$work}`)
   let $paged := if (exists($pager)) then $pager?get($tb, $page) else $tb

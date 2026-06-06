@@ -1,7 +1,8 @@
 import module namespace n = 'normalize';
 
-for $path in db:list('glaux')
-  let $urn := tokenize($path, '/')
+let $_ := store:read('glaux')
+for $tlg in store:keys()
+  let $urn := tokenize($tlg, '/')
   let $doc := n:get-normalized($urn[1], $urn[2])
-  let $_ := trace(`{$urn[1]}/{$urn[2]}`)
-  return db:put('normalized', $doc, `{$urn[1]}/{$urn[2]}`)
+  let $_ := trace($tlg)
+  return db:put('normalized', $doc, $tlg)
