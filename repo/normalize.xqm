@@ -147,7 +147,7 @@ declare %public function n:get-normalized($author, $work, $page := ()) {
   let $tb := db:get('glaux', n:resource($author, $work))[1]
   let $style := trace(n:style($author, $work), "STYLE: ")
   let $pager := p:pager(`{$author}/{$work}`)
-  let $paged := if (exists($pager)) then $pager?get($tb, $page) else $tb
+  let $paged := if (exists($pager) and exists($page)) then $pager?get($tb, $page) else $tb
   let $analysis := trace($paged/treebank/sentence[1]/@analysis, "===== ANALYSIS: ")
   let $fixed := $paged update {
     replace value of node filter(.//word[@form = '"'], fn ($w, $i) { $i mod 2 = 1 })/@form with '“'
@@ -161,7 +161,7 @@ declare %public function n:get-normalized($author, $work, $page := ()) {
   let $meta := trace(store:get(`{$author}/{$work}`), "METADATA: ")
   return <treebank>
      <head>
-      <title>{$meta?english-title}{if (exists($pager)) then `, {$pager?format($page)}`}</title>
+      <title>{$meta?english-title}{if (exists($pager) and exists($page)) then `, {$pager?format($page)}`}</title>
       <author>{$meta?english-author}</author>
       {if (exists($pager)) then <books>
         {for $n in $pager?list
