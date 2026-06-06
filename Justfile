@@ -21,6 +21,7 @@ syntax:
 [group('db')]
 normalized:
   basex -c "CREATE DB normalized"
+  basex -Q seed/normalize.xq
 
 [group('db')]
 glaux:
